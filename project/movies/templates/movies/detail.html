@@ -1,9 +1,10 @@
 {% extends 'movies/base.html' %}
+{% load bootstrap4%}
 
 {% block content %}
   <h1>DETAIL</h1>
   <hr>
-  <p>{{ movie.poster_url }}</p>
+  <img class="w-25" src="{{ movie.poster_url }}" alt="poster">
   <p>{{ movie.title }}</p>
   {% for genres in movie.genre.all %}
     <p>{{ genres }}</p>
