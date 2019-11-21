@@ -13,11 +13,31 @@
   <hr>
 
   {% for review in reviews %}
-  <div>
-  댓글 : {{ review.content }}
-  평점 : {{ review.score }}
-  작성자 : {{ review.user }}
-  </div>
+    <div>
+      내용 : {{ review.content }} |
+      평점 : {{ review.score }} |
+      작성자 : <a href="#">{{ review.user }}</a>
+
+      {% if request.user == review.user %}
+        <form action="{% url 'movies:delete' movie.id review.id %}" method="POST">
+          {% csrf_token %}
+          <input type="submit" value="Delete">
+        </form>
+      {% endif %}
+    
+    </div>
   {% endfor %}
 
+  {{ user.is_authenticated }}
+  {% if user.is_authenticated %}
+  <form action="{% url 'movies:new' movie.id %}" method="POST">
+    {% csrf_token %}
+    {{ review_form }}
+    <input type="submit" value="submit">
+  </form>
+  {% else %}
+    <a href="#login"> [리뷰를 남기려면, 로그인하세요]</a>
+  {% endif %}
+  <hr>
+  <a href="{% url 'movies:index' %}">[BACK]</a>
 {% endblock content %}

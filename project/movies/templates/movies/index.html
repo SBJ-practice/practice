@@ -15,8 +15,18 @@
       <br>
       {{ movie.audience}} <br>
       {{ movie.description }}
+      <hr>
+      <a href="{% url 'movies:like' movie.id %}">
+        {% if user in movie.like_users.all %}
+          <p>좋아요 누름</p>
+        {% else %}
+          <p>좋아요</p>
+        {% endif %}
+      </a>
+      {{ movie.like_users.all|length }} 명이 이 영화를 좋아합니다.
     </div>
 
+    
     <hr>
   {% endfor %}
 {% endblock  %}
