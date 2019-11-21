@@ -16,7 +16,7 @@
     <div>
       내용 : {{ review.content }} |
       평점 : {{ review.score }} |
-      작성자 : <a href="#">{{ review.user }}</a>
+      작성자 : <a href="{% url 'accounts:profile' review.user %}">{{ review.user }}</a>
 
       {% if request.user == review.user %}
         <form action="{% url 'movies:delete' movie.id review.id %}" method="POST">

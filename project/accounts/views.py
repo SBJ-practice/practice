@@ -51,3 +51,17 @@ def profile(request, username):
     person = get_object_or_404(get_user_model(), username=username)
     context = {'person': person,}
     return render(request, 'accounts/profile.html', context)
+
+
+@login_required
+def follow(request, username, user_pk):
+    person = get_object_or_404(get_user_model(), pk=user_pk)
+    user = request.user
+
+    if person != user:
+        if person.followers.filter(pk=user.pk).exists():
+            person.followers.remove(user)
+        else:
+            person.followers.add(user)
+        
+    return redirect('accounts:profile', username)
