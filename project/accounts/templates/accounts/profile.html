@@ -1,0 +1,40 @@
+{% extends 'movies/base.html' %}
+{% block content %}
+<a href="{% url 'movies:index' %}">back</a>
+<h1>{{ person.username }}'s Profile</h1>
+<hr>
+<h3>{{ person.username }}가 작성한 글</h3>
+
+<div class="row">
+  {% for movie in movies %}
+  <div class="col-4 my-2">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">{{ movie.content }}</h5>
+        <p class="card=text">{{ movie.like_users.count }}명이 좋아합니다.</p>
+        <p class="card-text">{{ movie.comment_set.count }}개의 댓글</p>
+        <a href={% url 'movies:detail' movie.pk %} class="btn btn-primary">게시글 보기</a>
+      </div>
+    </div>
+  </div>
+
+  {% endfor %}
+</div>
+
+<h3 class="text-center">{{ person.username }}가 작성한 댓글</h3>
+<div class="row">
+  {% for comment in comments %}
+  <div class="col-12 my-2">
+    <div class="card">
+      <div class="card-body">
+        <blockquote class="blockquote mb-0">
+          <p>{{ comment.content }}</p>
+          <footer class="blockquote-footer">{{ comment.created_at|date:"SHORT_DATE_FORMAT" }}</footer>
+        </blockquote>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+
+{% endblock  %}
