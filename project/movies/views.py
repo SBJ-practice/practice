@@ -13,6 +13,7 @@ def index(request):
     context = {'movies': movies,}
     return render(request, 'movies/index.html', context)
 
+
 def detail(request, movie_pk):
     movie = get_object_or_404(Movie, pk=movie_pk)
     review_form = ReviewForm()
@@ -20,6 +21,7 @@ def detail(request, movie_pk):
     
     context = {'movie': movie, 'reviews': reviews, 'review_form': review_form}
     return render(request, 'movies/detail.html', context)
+
 
 @require_POST
 def review_create(request, movie_pk):
@@ -33,6 +35,7 @@ def review_create(request, movie_pk):
 
     return redirect('movies:detail', movie_pk)
 
+
 @require_POST
 def review_delete(request, movie_pk, review_pk):
     if request.user.is_authenticated:
@@ -41,6 +44,7 @@ def review_delete(request, movie_pk, review_pk):
             review.delete()
         return redirect('movies:detail', movie_pk)
     return HttpResponse('작성한 댓글이 아닙니다.', status=401)
+
 
 @login_required
 def like(request, movie_pk):
