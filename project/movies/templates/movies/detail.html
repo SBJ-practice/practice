@@ -1,0 +1,23 @@
+{% extends 'movies/base.html' %}
+
+{% block content %}
+  <h1>DETAIL</h1>
+  <hr>
+  <p>{{ movie.poster_url }}</p>
+  <p>{{ movie.title }}</p>
+  {% for genres in movie.genre.all %}
+    <p>{{ genres }}</p>
+  {% endfor %}
+  <p>{{ movie.audience }}</p>
+  <p>{{ movie.description }}</p>
+  <hr>
+
+  {% for review in reviews %}
+  <div>
+  댓글 : {{ review.content }}
+  평점 : {{ review.score }}
+  작성자 : {{ review.user }}
+  </div>
+  {% endfor %}
+
+{% endblock content %}
