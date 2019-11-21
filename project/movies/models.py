@@ -18,7 +18,7 @@ class Movie(models.Model):
     like_users = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='like_movies', blank=True)
 
     class Meta:
-        ordering = ['-pk']
+        ordering = ('-pk',)
 
     def __str__(self):
         return self.title
@@ -34,4 +34,4 @@ class Review(models.Model):
     movie = models.ForeignKey(Movie, on_delete=models.CASCADE)
 
     class Meta:
-        ordering = ['-pk']
+        ordering = ('-pk',)
